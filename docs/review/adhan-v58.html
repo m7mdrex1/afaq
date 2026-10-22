@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afaq — Adhan foreground playback demonstration</title>
+<style>
+  :root { color-scheme: dark; font-family: system-ui, sans-serif; background:#0e131f; color:#eef2ff }
+  body { max-width:880px; margin:40px auto; padding:0 20px; line-height:1.6 }
+  h1 { font-size:clamp(24px,4vw,34px); line-height:1.25 }
+  a { color:#91a9ff }
+  video { display:block; width:min(100%,380px); max-height:78vh; margin:24px auto; background:#080d16; border-radius:20px }
+  section { background:#181e2c; border:1px solid #2a3448; border-radius:20px; padding:20px; margin:20px 0 }
+  .muted { color:#bdc7dc }
+</style>
+<main>
+  <h1>Afaq: Adhan foreground playback</h1>
+  <p class="muted">Google Play review demonstration · com.afaq.prayer · version 58</p>
+  <video controls playsinline preload="metadata" aria-label="Android screen recording showing scheduled Adhan playback and its Stop action">
+    <source src="adhan-v58.mp4" type="video/mp4">
+    <a href="adhan-v58.mp4">Download the demonstration video</a>
+  </video>
+  <p><a href="adhan-v58.mp4">Open or download the MP4 video</a></p>
+  <section>
+    <h2>What the recording shows</h2>
+    <ol>
+      <li>The user selects the bundled Adhan sound in Settings → Adhan &amp; sound (<span lang="ar" dir="rtl">الأذان والصوت</span>).</li>
+      <li>The prayer screen shows the scheduled Maghrib time, 5:24 PM.</li>
+      <li>The user returns to the Android home screen. At the scheduled time, Adhan playback starts while the app is in the background.</li>
+      <li>The visible playback notification offers <strong>Stop Adhan</strong> (<span lang="ar" dir="rtl">إيقاف الأذان</span>). The user presses it and playback stops. The prayer notification remains without the Stop action.</li>
+    </ol>
+  </section>
+  <section>
+    <h2>Why the foreground service is used</h2>
+    <p>The user enables prayer alerts and chooses an Adhan audio file. At that user-configured prayer time, the app uses <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code> only while the audio plays, with a visible notification and a Stop action. Deferring or interrupting playback would delay or cut off the prayer-time audio reminder.</p>
+    <p>The service stops when the audio completes or when the user presses Stop. A seven-minute safety limit also stops it. No playback service runs between prayer alerts. Silent mode is respected by default; playing in silent mode requires a separate opt-in.</p>
+  </section>
+  <p class="muted">Test context: Android 13 emulator; English system language and Arabic app language. Installed APK splits were generated from the version 58 AAB. The emulator clock was set just before the scheduled prayer to avoid a long wait. This is an unedited native Android screen recording without an audio track; the ongoing notification and Stop interaction show the playback lifecycle.</p>
+</main>
+</html>
